@@ -1,0 +1,8 @@
+{
+    "name": "boot-dev-gator-ts",
+    
+    "build": {
+        "dockerfile": "./Dockerfile"
+    }
+
+}
