@@ -16,10 +16,10 @@ export function setUser(username : string) {
 export function readConfig(): Config{
     try {
         let data = fs.readFileSync(getConfigFilePath(), 'utf8');
-        return validateConfig(data);
+        return validateConfig(JSON.parse(data));
     }
     catch(e) {
-        throw Error(`Unable to read ${getConfigFilePath}: ${(e as Error).message}`)
+        throw Error(`Unable to read ${getConfigFilePath()}: ${(e as Error).message}`)
     }
 }
 
@@ -41,10 +41,16 @@ function writeConfig(cfg: Config): void {
 }
 
 function validateConfig(rawConfig: any): Config {
-    let configJSON = JSON.parse(rawConfig.toString());
+    if(!rawConfig.db_url || typeof rawConfig.db_url !== "string") {
+        throw new Error("db_url is required in config file");
+    }
+    if(!rawConfig.current_user_name ||
+        typeof rawConfig.current_user_name !== "string") {
+        throw new Error("current_user_name is required in config file");
+    }
 
     return {
-        dbUrl: configJSON["db_url"],
-        currentUserName: configJSON["current_user_name"]
+        dbUrl: rawConfig.db_url,
+        currentUserName: rawConfig.current_user_name
     }
 }
