@@ -8,15 +8,16 @@ async function main() {
     registerCommand(registry, "register", handlerRegister);
 
     const args = process.argv.slice(2);
+
+    if( args.length < 1) {
+        console.log("incorrect number of arguments");
+        exit(1);
+    }
+
     const command = args[0];
     const commandArgs = args.slice(1);
 
     console.log(`Command: ${command}, CommandArgs: ${commandArgs}`);
-
-    if( commandArgs.length < 1) {
-        console.log("incorrect number of arguments");
-        exit(1);
-    }
 
     await runCommand(registry, command, ...commandArgs);
     process.exit(0)
