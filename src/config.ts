@@ -11,6 +11,7 @@ export function setUser(username : string) {
     let config = readConfig();
     config.currentUserName = username;
     writeConfig(config);
+    console.log(`The username, ${username}, has been set`);
 }
 
 export function readConfig(): Config{
