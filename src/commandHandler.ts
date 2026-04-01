@@ -50,9 +50,6 @@ export async function handlerRegister(cmdName: string, ...args: string[]) {
         console.log((error as Error).cause);
         exit(1)
     }
-    
-
-
 }
 
 export function registerCommand(registry: CommandsRegistry, cmdName: string, handler: CommandHandler) {
