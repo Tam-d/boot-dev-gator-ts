@@ -70,7 +70,6 @@ export async function handlerGetUsers(cmdName: string, ...args: string[]) {
 }
 
 export async function handlerReset(cmdName: string, ...args: string[]) {
-    
     try {
         console.log("Attempting to delete users....")
         await deleteUsers();
@@ -79,7 +78,6 @@ export async function handlerReset(cmdName: string, ...args: string[]) {
         console.log("There was an issue reseting the database.");
         exit(1);
     }
-    
 }
 
 export function registerCommand(registry: CommandsRegistry, cmdName: string, handler: CommandHandler) {
