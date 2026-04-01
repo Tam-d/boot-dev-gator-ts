@@ -1,6 +1,6 @@
 import { exit } from "node:process";
 import { setUser } from "./config.js";
-import { createUser, getUserByName } from "./lib/db/queries/users.js";
+import { createUser, deleteUsers, getUserByName } from "./lib/db/queries/users.js";
 
 export type CommandHandler = (cmdName: string, ...args: string[]) => Promise<void>;
 
@@ -50,6 +50,19 @@ export async function handlerRegister(cmdName: string, ...args: string[]) {
         console.log((error as Error).cause);
         exit(1)
     }
+}
+
+export async function handlerReset(cmdName: string, ...args: string[]) {
+    
+    try {
+        console.log("Attempting to delete users....")
+        await deleteUsers();
+    }
+    catch(error) {
+        console.log("There was an issue reseting the database.");
+        exit(1);
+    }
+    
 }
 
 export function registerCommand(registry: CommandsRegistry, cmdName: string, handler: CommandHandler) {
