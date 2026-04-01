@@ -1,6 +1,6 @@
 import { exit } from "node:process";
-import { setUser } from "./config.js";
-import { createUser, deleteUsers, getUserByName } from "./lib/db/queries/users.js";
+import { readConfig, setUser } from "./config.js";
+import { createUser, deleteUsers, getUserByName, getUsers } from "./lib/db/queries/users.js";
 
 export type CommandHandler = (cmdName: string, ...args: string[]) => Promise<void>;
 
@@ -49,6 +49,23 @@ export async function handlerRegister(cmdName: string, ...args: string[]) {
         console.log((error as Error).message);
         console.log((error as Error).cause);
         exit(1)
+    }
+}
+
+export async function handlerGetUsers(cmdName: string, ...args: string[]) {
+    try {
+        const currUser = readConfig().currentUserName;
+
+        const users = await getUsers();
+
+        for(const user of users) {
+            console.log(
+                `* ${user.name} ${user.name === currUser? "(current)" : ""}`
+            );
+        }
+    }
+    catch(error) {
+        console.log("There was an error while fetching users...")
     }
 }
 
