@@ -8,6 +8,14 @@ export type CommandsRegistry = {
     [key: string]: CommandHandler
 }
 
+export function registerCommand(registry: CommandsRegistry, cmdName: string, handler: CommandHandler) {
+    registry[cmdName] = handler;
+}
+
+export async function runCommand(registry: CommandsRegistry, cmdName: string, ...args: string[]) {
+    await registry[cmdName](cmdName, ...args);
+}
+
 export async function handlerLogin(cmdName: string, ...args: string[]) {
     if( args.length === 0) {
         throw Error(" the login handler expects a single argument, a username");
@@ -78,12 +86,4 @@ export async function handlerReset(cmdName: string, ...args: string[]) {
         console.log("There was an issue reseting the database.");
         exit(1);
     }
-}
-
-export function registerCommand(registry: CommandsRegistry, cmdName: string, handler: CommandHandler) {
-    registry[cmdName] = handler;
-}
-
-export async function runCommand(registry: CommandsRegistry, cmdName: string, ...args: string[]) {
-    await registry[cmdName](cmdName, ...args);
 }
