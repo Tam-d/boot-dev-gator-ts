@@ -15,6 +15,13 @@
       "when": 1775089660435,
       "tag": "0001_amazing_harpoon",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1775143588268,
+      "tag": "0002_high_scalphunter",
+      "breakpoints": true
     }
   ]
 }

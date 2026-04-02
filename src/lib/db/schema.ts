@@ -28,3 +28,22 @@ export const feeds = pgTable("feeds", {
     .defaultNow()
     .$onUpdate(() => new Date()),
 });
+
+export const feedFollows = pgTable("feed_follows", {
+  id: uuid("id").primaryKey().defaultRandom().notNull(),
+  feedId: uuid("feed_id")
+    .references(
+      ()=> feeds.id, 
+      { onDelete: "cascade" }
+    ),
+  userId: uuid("user_id")
+    .references(
+      ()=> users.id, 
+      { onDelete: "cascade" }
+    ),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
+});
