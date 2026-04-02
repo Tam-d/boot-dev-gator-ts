@@ -16,7 +16,6 @@ export async function handlerAddFeed(cmdName: string, ...args: string[]) {
     try {
         const feedName = args[0];
         const feedUrl = args[1];
-
         const currUsername = readConfig().currentUserName;
 
         if(!feedName || !feedUrl) {
@@ -35,7 +34,6 @@ export async function handlerAddFeed(cmdName: string, ...args: string[]) {
         console.log((error as Error).message);
         exit(1);
     }
-    
 }
 
 function printFeed(feed: Feed, user: User){
