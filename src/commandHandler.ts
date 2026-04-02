@@ -19,17 +19,6 @@ export async function runCommand(registry: CommandsRegistry, cmdName: string, ..
     await registry[cmdName](cmdName, ...args);
 }
 
-export async function handlerReset(cmdName: string, ...args: string[]) {
-    try {
-        console.log("Attempting to delete users....")
-        await deleteUsers();
-    }
-    catch(error) {
-        console.log("There was an issue reseting the database.");
-        exit(1);
-    }
-}
-
 export async function handlerAddFeed(cmdName: string, ...args: string[]) {
     try {
         const feedName = args[0];
