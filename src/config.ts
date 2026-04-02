@@ -32,7 +32,10 @@ function writeConfig(cfg: Config): void {
     try {
         fs.writeFileSync(
             getConfigFilePath(), 
-            JSON.stringify({"db_url": cfg.dbUrl, "current_user_name": cfg.currentUserName})
+            JSON.stringify({
+                "db_url": cfg.dbUrl, 
+                "current_user_name": cfg.currentUserName
+            }, null, 2)
         );
     }
     catch(e) {
