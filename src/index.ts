@@ -1,4 +1,3 @@
-import { exit } from "node:process";
 import { CommandsRegistry, registerCommand, runCommand } from "./commandHandler.js";
 import { handlerGetUsers, handlerLogin, handlerRegister } from "./commands/users.js";
 import { handlerReset } from "./commands/reset.js";
@@ -10,9 +9,9 @@ async function main() {
 
     if( args.length < 1) {
         console.log("incorrect number of arguments");
-        exit(1);
+        process.exit(1);
     }
-    
+
     const registry : CommandsRegistry = {};
     registerCommand(registry, "login", handlerLogin);
     registerCommand(registry, "register", handlerRegister);
@@ -26,7 +25,18 @@ async function main() {
 
     console.log(`Command: ${command}, CommandArgs: ${commandArgs}`);
 
-    await runCommand(registry, command, ...commandArgs);
+    try {
+        await runCommand(registry, command, ...commandArgs);
+    }
+    catch(error) {
+        if(error instanceof Error) {
+            console.log(
+                `Error running command ${command}: ${error.message}`
+            );
+        }
+        process.exit(1);
+    }
+    
     process.exit(0)
 }
 
