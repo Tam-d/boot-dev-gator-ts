@@ -19,34 +19,6 @@ export async function runCommand(registry: CommandsRegistry, cmdName: string, ..
     await registry[cmdName](cmdName, ...args);
 }
 
-export async function handlerAddFeed(cmdName: string, ...args: string[]) {
-    try {
-        const feedName = args[0];
-        const feedUrl = args[1];
-
-        const currUsername = readConfig().currentUserName;
-
-        if(!feedName || !feedUrl) {
-            throw Error("Missing required values name or url");
-        }
-
-        const user = await getUserByName(currUsername);
-
-        const feed = await createFeed({
-            name: feedName,
-            url: feedUrl,
-            userId: user.id
-        });
-    }
-    catch(error) {
-        console.log((error as Error).message);
-        exit(1);
-    }
-    
-}
-
-
-
 function printFeed(feed: Feed, user: User){
 
 }
