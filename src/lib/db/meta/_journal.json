@@ -29,6 +29,13 @@
       "when": 1775145026839,
       "tag": "0003_dear_mindworm",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1775147563202,
+      "tag": "0004_closed_grandmaster",
+      "breakpoints": true
     }
   ]
 }

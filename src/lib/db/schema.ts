@@ -1,4 +1,4 @@
-import { pgTable, timestamp, uuid, text, unique } from "drizzle-orm/pg-core";
+import { pgTable, timestamp, uuid, text, uniqueIndex } from "drizzle-orm/pg-core";
 
 export type User = typeof users.$inferInsert;
 export type Feed = typeof feeds.$inferInsert;
@@ -50,6 +50,9 @@ export const feedFollows = pgTable("feed_follows", {
   
   },
   (table) => ({
-    uniqueUserFeed: unique().on(table.userId, table.feedId),
+  uniqueUserFeed: uniqueIndex("user_feed_unique_idx").on(
+    table.userId,
+    table.feedId
+  ),
   })
 );

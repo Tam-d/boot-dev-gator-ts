@@ -1,0 +1,2 @@
+ALTER TABLE "feed_follows" DROP CONSTRAINT "feed_follows_user_id_feed_id_unique";--> statement-breakpoint
+CREATE UNIQUE INDEX "user_feed_unique_idx" ON "feed_follows" USING btree ("user_id","feed_id");
