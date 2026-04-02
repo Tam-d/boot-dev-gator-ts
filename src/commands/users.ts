@@ -11,7 +11,7 @@ export async function handlerLogin(cmdName: string, ...args: string[]) {
     const user = await getUserByName(username);
 
     if(user === undefined) {
-        throw Error("the user does not exist");
+        throw Error(`The user ${username} was not found`);
     }
 
     setUser(username);
