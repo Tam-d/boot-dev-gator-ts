@@ -42,18 +42,13 @@ export async function handlerRegister(cmdName: string, ...args: string[]) {
 }
 
 export async function handlerGetUsers(cmdName: string, ...args: string[]) {
-    try {
-        const currUser = readConfig().currentUserName;
+    const currUser = readConfig().currentUserName;
 
-        const users = await getUsers();
+    const users = await getUsers();
 
-        for(const user of users) {
-            console.log(
-                `* ${user.name} ${user.name === currUser? "(current)" : ""}`
-            );
-        }
-    }
-    catch(error) {
-        console.log("There was an error while fetching users...")
+    for(const user of users) {
+        console.log(
+            `* ${user.name} ${user.name === currUser? "(current)" : ""}`
+        );
     }
 }
