@@ -19,21 +19,6 @@ export async function runCommand(registry: CommandsRegistry, cmdName: string, ..
     await registry[cmdName](cmdName, ...args);
 }
 
-export async function handlerLogin(cmdName: string, ...args: string[]) {
-    if( args.length === 0) {
-        throw Error(" the login handler expects a single argument, a username");
-    }
-    const username = args[0];
-
-    const user = await getUserByName(username);
-
-    if(user === undefined) {
-        throw Error("the user does not exist");
-    }
-
-    setUser(username);
-}
-
 export async function handlerRegister(cmdName: string, ...args: string[]) {
     if(args.length === 0) {
         throw Error("The register handler expects a single argument, a username");
