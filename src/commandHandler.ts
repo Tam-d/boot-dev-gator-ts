@@ -1,6 +1,7 @@
 import { exit } from "node:process";
 import { readConfig, setUser } from "./config.js";
 import { createUser, deleteUsers, getUserByName, getUsers } from "./lib/db/queries/users.js";
+import { fetchFeed } from "./feed.js";
 
 export type CommandHandler = (cmdName: string, ...args: string[]) => Promise<void>;
 
@@ -86,4 +87,11 @@ export async function handlerReset(cmdName: string, ...args: string[]) {
         console.log("There was an issue reseting the database.");
         exit(1);
     }
+}
+
+export async function handlerAggregate(cmdName: string, ...args: string[]) {
+
+    const feed = await fetchFeed("https://www.wagslane.dev/index.xml");
+
+    console.log(JSON.stringify(feed, null, 2));
 }
