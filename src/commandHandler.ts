@@ -45,12 +45,7 @@ export async function handlerAddFeed(cmdName: string, ...args: string[]) {
     
 }
 
-export async function handlerAggregate(cmdName: string, ...args: string[]) {
 
-    const feed = await fetchFeed("https://www.wagslane.dev/index.xml");
-
-    console.log(JSON.stringify(feed, null, 2));
-}
 
 function printFeed(feed: Feed, user: User){
 

@@ -1,7 +1,8 @@
 import { exit } from "node:process";
-import { CommandsRegistry, handlerAddFeed, handlerAggregate, registerCommand, runCommand } from "./commandHandler.js";
+import { CommandsRegistry, handlerAddFeed, registerCommand, runCommand } from "./commandHandler.js";
 import { handlerGetUsers, handlerLogin, handlerRegister } from "./commands/users.js";
 import { handlerReset } from "./commands/reset.js";
+import { handlerAggregate } from "./commands/feed.js";
 
 async function main() {
     const registry : CommandsRegistry = {};
