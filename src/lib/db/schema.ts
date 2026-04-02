@@ -2,6 +2,7 @@ import { pgTable, timestamp, uuid, text, unique } from "drizzle-orm/pg-core";
 
 export type User = typeof users.$inferInsert;
 export type Feed = typeof feeds.$inferInsert;
+export type FeedFollow = typeof feedFollows.$inferInsert;
 
 export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom().notNull(),
