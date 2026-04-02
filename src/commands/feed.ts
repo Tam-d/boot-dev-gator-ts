@@ -1,7 +1,7 @@
 import { exit } from "node:process";
 import { readConfig } from "src/config";
 import { fetchFeed } from "src/feed";
-import { createFeed } from "src/lib/db/queries/feeds";
+import { createFeed, getFeeds } from "src/lib/db/queries/feeds";
 import { getUserByName } from "src/lib/db/queries/users";
 import { Feed, User } from "src/lib/db/schema";
 
@@ -36,6 +36,12 @@ export async function handlerAddFeed(cmdName: string, ...args: string[]) {
     }
 }
 
-function printFeed(feed: Feed, user: User){
+export async function handlerGetFeeds(cmdName: string, ...args: string[]) {
+    const feeds = await getFeeds();
 
+    for(const feed of feeds) {
+        console.log(`Name: ${feed.feeds.name}`);
+        console.log(`Url: ${feed.feeds.url}`);
+        console.log(`Username: ${feed.users.name}`);
+    }
 }
