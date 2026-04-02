@@ -1,9 +1,8 @@
 import { exit } from "node:process";
 import { readConfig } from "src/config";
 import { fetchFeed } from "src/feed";
-import { createFeed, getFeeds } from "src/lib/db/queries/feeds";
+import { createFeed, createFeedFollow, getFeedByUrl, getFeedFollowsForUser, getFeeds } from "src/lib/db/queries/feeds";
 import { getUserByName } from "src/lib/db/queries/users";
-import { Feed, User } from "src/lib/db/schema";
 
 export async function handlerAggregate(cmdName: string, ...args: string[]) {
 
@@ -29,6 +28,8 @@ export async function handlerAddFeed(cmdName: string, ...args: string[]) {
             url: feedUrl,
             userId: user.id
         });
+
+        await followFeed(feed.id, user.id);
     }
     catch(error) {
         console.log((error as Error).message);
@@ -44,4 +45,29 @@ export async function handlerGetFeeds(cmdName: string, ...args: string[]) {
         console.log(`Url: ${feed.feeds.url}`);
         console.log(`Username: ${feed.users.name}`);
     }
+}
+
+export async function handlerFollowFeed(cmdName: string, ...args: string[]) {
+    if(args.length != 1) {
+        throw Error(`Usage: ${cmdName} <url>`);
+    }
+
+    const feedUrl = args[0];
+    const feed = await getFeedByUrl(feedUrl);
+    const currUser = await getUserByName(readConfig().currentUserName);
+
+    await followFeed(feed.id, currUser.id);
+}
+
+export async function handlerGetFollowing(cmdName: string, ...args: string[]) {
+    const currUser = await getUserByName(readConfig().currentUserName);
+    const feedFollows = await getFeedFollowsForUser(currUser.id);
+
+    for(const feedFollow of feedFollows) {
+        console.log(feedFollow.feeds.name);
+    }
+}
+
+async function followFeed(feedId: string, userId: string) {
+    const feedFollow = await createFeedFollow(feedId, userId);
 }
