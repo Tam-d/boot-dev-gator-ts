@@ -29,7 +29,7 @@ export async function handlerAddFeed(cmdName: string, ...args: string[]) {
             userId: user.id
         });
 
-        await followFeed(feed.id, user.id);
+        await createFeedFollow(feed.id, user.id);
     }
     catch(error) {
         console.log((error as Error).message);
@@ -56,7 +56,7 @@ export async function handlerFollowFeed(cmdName: string, ...args: string[]) {
     const feed = await getFeedByUrl(feedUrl);
     const currUser = await getUserByName(readConfig().currentUserName);
 
-    await followFeed(feed.id, currUser.id);
+    await createFeedFollow(feed.id, currUser.id);
 }
 
 export async function handlerGetFollowing(cmdName: string, ...args: string[]) {
@@ -66,8 +66,4 @@ export async function handlerGetFollowing(cmdName: string, ...args: string[]) {
     for(const feedFollow of feedFollows) {
         console.log(feedFollow.feeds.name);
     }
-}
-
-async function followFeed(feedId: string, userId: string) {
-    const feedFollow = await createFeedFollow(feedId, userId);
 }
