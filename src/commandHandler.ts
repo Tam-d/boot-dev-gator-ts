@@ -19,23 +19,6 @@ export async function runCommand(registry: CommandsRegistry, cmdName: string, ..
     await registry[cmdName](cmdName, ...args);
 }
 
-export async function handlerGetUsers(cmdName: string, ...args: string[]) {
-    try {
-        const currUser = readConfig().currentUserName;
-
-        const users = await getUsers();
-
-        for(const user of users) {
-            console.log(
-                `* ${user.name} ${user.name === currUser? "(current)" : ""}`
-            );
-        }
-    }
-    catch(error) {
-        console.log("There was an error while fetching users...")
-    }
-}
-
 export async function handlerReset(cmdName: string, ...args: string[]) {
     try {
         console.log("Attempting to delete users....")
