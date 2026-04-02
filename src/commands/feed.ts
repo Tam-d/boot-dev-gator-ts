@@ -1,7 +1,8 @@
 import { exit } from "node:process";
 import { readConfig } from "src/config";
 import { fetchFeed } from "src/feed";
-import { createFeed, createFeedFollow, getFeedByUrl, getFeedFollowsForUser, getFeeds } from "src/lib/db/queries/feeds";
+import { createFeedFollow, getFeedFollowsForUser } from "src/lib/db/queries/feedFollows";
+import { createFeed, getFeedByUrl, getFeeds } from "src/lib/db/queries/feeds";
 import { getUserByName } from "src/lib/db/queries/users";
 
 export async function handlerAggregate(cmdName: string, ...args: string[]) {
