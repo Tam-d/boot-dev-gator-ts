@@ -22,8 +22,8 @@ export async function createFeedFollow(
     .select()
     .from(feedFollows)
     .where(eq(feedFollows.id, feedFollow.id))
-    .innerJoin(feeds, eq(feeds.id, feedFollow.feedId!))
-    .innerJoin(users, eq(users.id, feedFollow.userId!));
+    .innerJoin(feeds, eq(feeds.id, feedFollows.feedId))
+    .innerJoin(users, eq(users.id, feedFollows.userId));
 
   return result;
 }
