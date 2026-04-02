@@ -3,6 +3,7 @@ import { readConfig } from "src/config";
 import { fetchFeed } from "src/feed";
 import { createFeed } from "src/lib/db/queries/feeds";
 import { getUserByName } from "src/lib/db/queries/users";
+import { Feed, User } from "src/lib/db/schema";
 
 export async function handlerAggregate(cmdName: string, ...args: string[]) {
 
@@ -35,4 +36,8 @@ export async function handlerAddFeed(cmdName: string, ...args: string[]) {
         exit(1);
     }
     
+}
+
+function printFeed(feed: Feed, user: User){
+
 }

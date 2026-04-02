@@ -18,7 +18,3 @@ export function registerCommand(registry: CommandsRegistry, cmdName: string, han
 export async function runCommand(registry: CommandsRegistry, cmdName: string, ...args: string[]) {
     await registry[cmdName](cmdName, ...args);
 }
-
-function printFeed(feed: Feed, user: User){
-
-}
