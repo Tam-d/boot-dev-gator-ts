@@ -49,10 +49,7 @@ export const feedFollows = pgTable("feed_follows", {
     .$onUpdate(() => new Date()),
   
   },
-  (table) => ({
-  uniqueUserFeed: uniqueIndex("user_feed_unique_idx").on(
-    table.userId,
-    table.feedId
-  ),
-  })
+  (table) => [
+    uniqueIndex("user_feed_unique_idx").on(table.userId, table.feedId),
+  ]
 );
