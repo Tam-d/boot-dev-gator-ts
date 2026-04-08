@@ -1,6 +1,7 @@
 import { pgTable, timestamp, uuid, text, uniqueIndex } from "drizzle-orm/pg-core";
 
-export type User = typeof users.$inferInsert;
+export type NewUser = typeof users.$inferInsert;
+export type User = typeof users.$inferSelect;
 export type Feed = typeof feeds.$inferInsert;
 export type FeedFollow = typeof feedFollows.$inferInsert;
 
