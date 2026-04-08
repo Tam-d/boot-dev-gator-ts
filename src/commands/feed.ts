@@ -1,9 +1,7 @@
-import { exit } from "node:process";
-import { readConfig } from "src/config";
 import { fetchFeed } from "src/feed";
 import { createFeedFollow, getFeedFollowsForUser } from "src/lib/db/queries/feedFollows";
 import { createFeed, getFeedByUrl, getFeeds } from "src/lib/db/queries/feeds";
-import { getUserByName } from "src/lib/db/queries/users";
+import { User } from "src/lib/db/schema";
 
 export async function handlerAggregate(cmdName: string, ...args: string[]) {
 
@@ -12,17 +10,15 @@ export async function handlerAggregate(cmdName: string, ...args: string[]) {
     console.log(JSON.stringify(feed, null, 2));
 }
 
-export async function handlerAddFeed(cmdName: string, ...args: string[]) {
+export async function handlerAddFeed(cmdName: string, user: User, ...args: string[]) {
     try {
+
         const feedName = args[0];
         const feedUrl = args[1];
-        const currUsername = readConfig().currentUserName;
 
         if(!feedName || !feedUrl) {
             throw Error("Missing required values name or url");
         }
-
-        const user = await getUserByName(currUsername);
 
         const feed = await createFeed({
             name: feedName,
@@ -33,8 +29,7 @@ export async function handlerAddFeed(cmdName: string, ...args: string[]) {
         await createFeedFollow(feed.id, user.id);
     }
     catch(error) {
-        console.log((error as Error).message);
-        exit(1);
+        throw error;
     }
 }
 
@@ -48,21 +43,19 @@ export async function handlerGetFeeds(cmdName: string, ...args: string[]) {
     }
 }
 
-export async function handlerFollowFeed(cmdName: string, ...args: string[]) {
+export async function handlerFollowFeed(cmdName: string, user: User, ...args: string[]) {
     if(args.length != 1) {
         throw Error(`Usage: ${cmdName} <url>`);
     }
 
     const feedUrl = args[0];
     const feed = await getFeedByUrl(feedUrl);
-    const currUser = await getUserByName(readConfig().currentUserName);
 
-    await createFeedFollow(feed.id, currUser.id);
+    await createFeedFollow(feed.id, user.id);
 }
 
-export async function handlerGetFollowing(cmdName: string, ...args: string[]) {
-    const currUser = await getUserByName(readConfig().currentUserName);
-    const feedFollows = await getFeedFollowsForUser(currUser.id);
+export async function handlerGetFollowing(cmdName: string, user: User, ...args: string[]) {
+    const feedFollows = await getFeedFollowsForUser(user.id);
 
     for(const feedFollow of feedFollows) {
         console.log(feedFollow.feeds.name);
