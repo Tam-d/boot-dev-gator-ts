@@ -3,6 +3,7 @@ import { handlerGetUsers, handlerLogin, handlerRegister } from "./commands/users
 import { handlerReset } from "./commands/reset.js";
 import { handlerAddFeed, handlerAggregate, handlerFollowFeed, handlerGetFeeds, handlerGetFollowing } from "./commands/feed.js";
 import { middleWareLogIn } from "./middleware/middleware.js";
+import { handlerUnfollow } from "./commands/feedFollow.js";
 
 async function main() {
     
@@ -24,6 +25,7 @@ async function main() {
     registerCommand(registry, "addfeed", middleWareLogIn(handlerAddFeed));
     registerCommand(registry, "follow", middleWareLogIn(handlerFollowFeed));
     registerCommand(registry, "following", middleWareLogIn(handlerGetFollowing));
+    registerCommand(registry, "unfollow", middleWareLogIn(handlerUnfollow));
 
     const command = args[0];
     const commandArgs = args.slice(1);
