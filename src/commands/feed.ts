@@ -1,6 +1,6 @@
 import { fetchFeed } from "src/feed";
-import { createFeedFollow, getFeedFollowsForUser } from "src/lib/db/queries/feedFollows";
-import { createFeed, getFeedByUrl, getFeeds } from "src/lib/db/queries/feeds";
+import { createFeedFollow } from "src/lib/db/queries/feedFollows";
+import { createFeed, getFeeds } from "src/lib/db/queries/feeds";
 import { User } from "src/lib/db/schema";
 
 export async function handlerAggregate(cmdName: string, ...args: string[]) {
@@ -43,21 +43,3 @@ export async function handlerGetFeeds(cmdName: string, ...args: string[]) {
     }
 }
 
-export async function handlerFollowFeed(cmdName: string, user: User, ...args: string[]) {
-    if(args.length != 1) {
-        throw Error(`Usage: ${cmdName} <url>`);
-    }
-
-    const feedUrl = args[0];
-    const feed = await getFeedByUrl(feedUrl);
-
-    await createFeedFollow(feed.id, user.id);
-}
-
-export async function handlerGetFollowing(cmdName: string, user: User, ...args: string[]) {
-    const feedFollows = await getFeedFollowsForUser(user.id);
-
-    for(const feedFollow of feedFollows) {
-        console.log(feedFollow.feeds.name);
-    }
-}

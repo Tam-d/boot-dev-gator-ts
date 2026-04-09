@@ -1,9 +1,9 @@
 import { CommandsRegistry, registerCommand, runCommand } from "./commandHandler.js";
 import { handlerGetUsers, handlerLogin, handlerRegister } from "./commands/users.js";
 import { handlerReset } from "./commands/reset.js";
-import { handlerAddFeed, handlerAggregate, handlerFollowFeed, handlerGetFeeds, handlerGetFollowing } from "./commands/feed.js";
+import { handlerAddFeed, handlerAggregate, handlerGetFeeds } from "./commands/feed.js";
 import { middleWareLogIn } from "./middleware/middleware.js";
-import { handlerUnfollow } from "./commands/feedFollow.js";
+import { handlerFollowFeed, handlerGetFollowing, handlerUnfollow } from "./commands/feedFollow.js";
 
 async function main() {
     
