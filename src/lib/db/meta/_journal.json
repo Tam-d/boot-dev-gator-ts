@@ -36,6 +36,13 @@
       "when": 1775147563202,
       "tag": "0004_closed_grandmaster",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1775783086593,
+      "tag": "0005_right_mandroid",
+      "breakpoints": true
     }
   ]
 }

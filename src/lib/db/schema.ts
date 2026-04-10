@@ -3,6 +3,7 @@ import { pgTable, timestamp, uuid, text, uniqueIndex } from "drizzle-orm/pg-core
 export type NewUser = typeof users.$inferInsert;
 export type User = typeof users.$inferSelect;
 export type Feed = typeof feeds.$inferInsert;
+export type ExistingFeed =  typeof feeds.$inferSelect;
 export type FeedFollow = typeof feedFollows.$inferInsert;
 
 export const users = pgTable("users", {
@@ -24,6 +25,7 @@ export const feeds = pgTable("feeds", {
       ()=> users.id, 
       { onDelete: "cascade" }
     ),
+  lastFetchedAt: timestamp("last_fetched_at"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at")
     .notNull()
