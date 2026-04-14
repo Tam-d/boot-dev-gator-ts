@@ -33,14 +33,3 @@ export async function handlerGetFeeds(cmdName: string, ...args: string[]) {
         console.log(`Username: ${feed.users.name}`);
     }
 }
-
-export async function markFeedFetched(feedId: string) {
-    const updatedFeed = await updateFeedFetched(feedId);
-
-    console.log(`The updated feed: `);
-    console.log(updatedFeed);
-
-    if(!updatedFeed) {
-        throw new Error("Unable to update feed");
-    }
-}

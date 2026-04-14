@@ -1,5 +1,4 @@
-import { getNextFeed } from "src/lib/db/queries/feeds";
-import { markFeedFetched } from "./feed";
+import { getNextFeed, updateFeedFetched } from "src/lib/db/queries/feeds";
 import { fetchFeed } from "src/feed";
 import { parseDuration } from "src/lib/time";
 
@@ -50,4 +49,13 @@ async function scrapeFeeds() {
     const feedTitle = feedData.channel.title;
     console.log(`${feedTitle}`);
 
+}
+
+async function markFeedFetched(feedId: string) {
+    const updatedFeed = await updateFeedFetched(feedId);
+
+    console.log(
+        `Updated last fetch for "${updatedFeed.name}"\n` +
+        `to ${updatedFeed.lastFetchedAt}`
+    );
 }
