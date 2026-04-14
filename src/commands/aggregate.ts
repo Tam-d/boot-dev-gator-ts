@@ -6,9 +6,9 @@ export async function handlerAggregate(cmdName: string, ...args: string[]) {
     const duration = args[0];
     const timeBetweenRequests = parseDuration(duration);
 
-    try {
-        console.log(`Collecting feeds every ${duration}`);
+    console.log(`Collecting feeds every ${duration}...`);
 
+    try {
         scrapeFeeds();
 
         const interval = setInterval(
