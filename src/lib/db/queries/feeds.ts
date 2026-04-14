@@ -1,7 +1,8 @@
 import { db } from "../index.js";
 import { sql } from 'drizzle-orm';
-import { Feed, feeds, users } from "../schema.js";
+import { Feed, feeds } from "../schema/schema.js";
 import { eq } from "drizzle-orm";
+import { users } from "../schema/users.js";
 
 export async function createFeed(feed: Feed) {
   const [result] = await db
