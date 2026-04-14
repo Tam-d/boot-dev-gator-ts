@@ -1,4 +1,3 @@
-import { fetchFeed } from "src/feed";
 import { createFeedFollow } from "src/lib/db/queries/feedFollows";
 import { createFeed, getFeeds, updateFeedFetched } from "src/lib/db/queries/feeds";
 import { User } from "src/lib/db/schema";
