@@ -1,6 +1,11 @@
-import { createFeedFollow, deleteFeedFollow, getFeedFollowsForUser } from "src/lib/db/queries/feedFollows";
-import { getFeedByUrl } from "src/lib/db/queries/feeds";
-import { User } from "src/lib/db/schema/schema";
+import { getFeedByUrl } from "src/lib/db/queries/feeds.js";
+import { User } from "src/lib/db/schema/users.js";
+import { 
+    createFeedFollow, 
+    deleteFeedFollow, 
+    getFeedFollowsForUser 
+} from "src/lib/db/queries/feedFollows.js";
+
 
 export async function handlerFollowFeed(cmdName: string, user: User, ...args: string[]) {
     if(args.length != 1) {
