@@ -1,5 +1,5 @@
 import { db } from "../index.js";
-import { feedFollows } from "../schema/schema.js";
+import { feedFollows } from "../schema/feedFollows.js";
 import { feeds } from "../schema/feeds.js";
 import { users } from "../schema/users.js";
 import { and, eq } from "drizzle-orm";
