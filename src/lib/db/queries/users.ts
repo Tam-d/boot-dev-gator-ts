@@ -1,5 +1,5 @@
-import { eq } from "drizzle-orm";
 import { db } from "../index.js";
+import { eq } from "drizzle-orm";
 import { users } from "../schema/users.js"
 
 export async function createUser(name: string) {
@@ -26,5 +26,8 @@ export async function getUsers() {
 }
 
 export async function deleteUsers() {
-    await db.delete(users);
+    const result = await db
+    .delete(users)
+    .returning();
+    return result;
 }
