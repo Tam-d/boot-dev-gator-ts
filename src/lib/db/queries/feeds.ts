@@ -1,7 +1,6 @@
 import { db } from "../index.js";
-import { sql } from 'drizzle-orm';
+import { sql, eq } from 'drizzle-orm';
 import { Feed, feeds } from "../schema/feeds.js";
-import { eq } from "drizzle-orm";
 import { users } from "../schema/users.js";
 
 export async function createFeed(feed: Feed) {
