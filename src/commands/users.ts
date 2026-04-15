@@ -36,7 +36,8 @@ export async function handlerRegister(cmdName: string, ...args: string[]) {
         throw Error("Unable to register user.");
     }
     
-    console.log(`User created successfully:\n${createdUser}`);
+    console.log("User created successfully:");
+    console.log(createdUser);
     
     setUser(createdUser.name);
 }
