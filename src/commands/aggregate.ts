@@ -1,6 +1,6 @@
-import { getNextFeed, updateFeedFetched } from "src/lib/db/queries/feeds";
-import { fetchFeed } from "src/feed";
-import { parseDuration } from "src/lib/time";
+import { getNextFeed, updateFeedFetched } from "src/lib/db/queries/feeds.js";
+import { fetchFeed } from "src/feed.js";
+import { parseDuration } from "src/lib/time.js";
 
 export async function handlerAggregate(cmdName: string, ...args: string[]) {
     const duration = args[0];
