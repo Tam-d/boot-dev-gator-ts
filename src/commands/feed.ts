@@ -1,6 +1,6 @@
-import { createFeedFollow } from "src/lib/db/queries/feedFollows";
-import { createFeed, getFeeds, updateFeedFetched } from "src/lib/db/queries/feeds";
-import { User } from "src/lib/db/schema/users";
+import { createFeedFollow } from "src/lib/db/queries/feedFollows.js";
+import { createFeed, getFeeds } from "src/lib/db/queries/feeds.js";
+import { User } from "src/lib/db/schema/users.js";
 
 export async function handlerAddFeed(cmdName: string, user: User, ...args: string[]) {
     try {
