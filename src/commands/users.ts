@@ -1,4 +1,3 @@
-import { exit } from "node:process";
 import { readConfig, setUser } from "../config.js";
 import { createUser, getUserByName, getUsers } from "../lib/db/queries/users.js";
 
