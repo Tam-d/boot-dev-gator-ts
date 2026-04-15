@@ -1,26 +1,8 @@
-import { pgTable, timestamp, uuid, text, uniqueIndex } from "drizzle-orm/pg-core";
-import { users } from "./users";
+import { pgTable, timestamp, uuid, uniqueIndex } from "drizzle-orm/pg-core";
+import { users } from "./users.js";
+import { feeds } from "./feeds.js";
 
-export type Feed = typeof feeds.$inferInsert;
-export type ExistingFeed =  typeof feeds.$inferSelect;
 export type FeedFollow = typeof feedFollows.$inferInsert;
-
-export const feeds = pgTable("feeds", {
-  id: uuid("id").primaryKey().defaultRandom().notNull(),
-  name: text("name").notNull(),
-  url: text("url").notNull().unique(),
-  userId: uuid("user_id")
-    .references(
-      ()=> users.id, 
-      { onDelete: "cascade" }
-    ),
-  lastFetchedAt: timestamp("last_fetched_at"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at")
-    .notNull()
-    .defaultNow()
-    .$onUpdate(() => new Date()),
-});
 
 export const feedFollows = pgTable("feed_follows", {
   id: uuid("id").primaryKey().defaultRandom().notNull(),
