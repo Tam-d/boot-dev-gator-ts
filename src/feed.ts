@@ -1,7 +1,7 @@
 import { desc } from "drizzle-orm";
 import { XMLParser } from "fast-xml-parser";
 
-type RSSFeed = {
+export type RSSFeed = {
   channel: {
     title: string;
     link: string;
@@ -10,7 +10,7 @@ type RSSFeed = {
   };
 };
 
-type RSSItem = {
+export type RSSItem = {
   title: string;
   link: string;
   description: string;
