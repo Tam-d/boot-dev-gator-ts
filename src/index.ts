@@ -16,19 +16,7 @@ async function main() {
         process.exit(1);
     }
 
-    const registry : CommandsRegistry = {};
-    registerCommand(registry, "login", handlerLogin);
-    registerCommand(registry, "register", handlerRegister);
-    registerCommand(registry, "reset", handlerReset);
-    registerCommand(registry, "users", handlerGetUsers);
-    registerCommand(registry, "agg", handlerAggregate);
-    registerCommand(registry, "feeds", handlerGetFeeds);
-
-    registerCommand(registry, "addfeed", middleWareLogIn(handlerAddFeed));
-    registerCommand(registry, "follow", middleWareLogIn(handlerFollowFeed));
-    registerCommand(registry, "following", middleWareLogIn(handlerGetFollowing));
-    registerCommand(registry, "unfollow", middleWareLogIn(handlerUnfollow));
-    registerCommand(registry, "browse", middleWareLogIn(handlerBrowsePosts));
+    const registry : CommandsRegistry = registerCommands();
 
     const command = args[0];
     const commandArgs = args.slice(1);
@@ -48,6 +36,31 @@ async function main() {
     }
     
     process.exit(0)
+}
+
+function registerCommands(): CommandsRegistry {
+    const registry = {}
+
+    // User commands
+    registerCommand(registry, "login", handlerLogin);
+    registerCommand(registry, "register", handlerRegister);
+    registerCommand(registry, "users", handlerGetUsers);
+    
+    // Feed commands
+    registerCommand(registry, "feeds", handlerGetFeeds);
+    registerCommand(registry, "addfeed", middleWareLogIn(handlerAddFeed));
+    registerCommand(registry, "follow", middleWareLogIn(handlerFollowFeed));
+    registerCommand(registry, "following", middleWareLogIn(handlerGetFollowing));
+    registerCommand(registry, "unfollow", middleWareLogIn(handlerUnfollow));
+    
+    // Aggregate commands
+    registerCommand(registry, "agg", handlerAggregate);
+    registerCommand(registry, "browse", middleWareLogIn(handlerBrowsePosts));
+
+    // Reset database
+    registerCommand(registry, "reset", handlerReset);
+
+    return registry
 }
 
 main();
