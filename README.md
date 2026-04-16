@@ -8,7 +8,7 @@ An rss feed aggregator, aggregates posts from multiple rss feeds and stores them
 
 Set a user from the database to the current user
 
-`npm run start login <username>`
+```npm run start login <username>```
 
 ### register
 
