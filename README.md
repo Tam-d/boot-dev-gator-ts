@@ -2,6 +2,19 @@
 
 An rss feed aggregator, aggregates posts from multiple rss feeds and stores them in a postgres database to view later.
 
+## Setup
+
+Create a gatorconfig.json file in your home directory
+- set the db url
+- the current user can be set via register and login
+
+```
+{
+  "db_url": "postgres://<db username>:<db password>@<db url>:<db port>/gator?sslmode=disable",
+  "current_user_name": ""
+}
+```
+
 ## Usage
 
 `npm run start <command> <args>`
