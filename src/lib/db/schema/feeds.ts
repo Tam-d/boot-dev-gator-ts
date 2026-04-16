@@ -1,5 +1,5 @@
 import { pgTable, timestamp, uuid, text } from "drizzle-orm/pg-core";
-import { users } from "./users";
+import { users } from "../schema";
 
 export type Feed = typeof feeds.$inferInsert;
 export type ExistingFeed =  typeof feeds.$inferSelect;

@@ -1,6 +1,5 @@
 import { pgTable, timestamp, uuid, uniqueIndex } from "drizzle-orm/pg-core";
-import { users } from "./users.js";
-import { feeds } from "./feeds.js";
+import { users, feeds } from "../schema";
 
 export type FeedFollow = typeof feedFollows.$inferInsert;
 
