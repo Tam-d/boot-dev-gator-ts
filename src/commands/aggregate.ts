@@ -1,6 +1,8 @@
 import { getNextFeed, updateFeedFetched } from "src/lib/db/queries/feeds.js";
-import { fetchFeed } from "src/feed.js";
+import { fetchFeed, RSSFeed, RSSItem } from "src/feed.js";
 import { parseDuration } from "src/lib/time.js";
+import { Feed } from "src/lib/db/schema";
+import { createPost } from "src/lib/db/queries/posts";
 
 export async function handlerAggregate(cmdName: string, ...args: string[]) {
     const duration = args[0];
@@ -47,7 +49,11 @@ async function scrapeFeeds() {
 
     const feedData = await fetchFeed(nextFeed.url);
     const feedTitle = feedData.channel.title;
-    console.log(`${feedTitle}`);
+    const feedItems = feedData.channel.item;
+
+    console.log(`Scrapings ${feedTitle}`);
+
+    scrapePosts(nextFeed, feedItems);
 
 }
 
@@ -58,4 +64,16 @@ async function markFeedFetched(feedId: string) {
         `Updated last fetch for "${updatedFeed.name}"\n` +
         `to ${updatedFeed.lastFetchedAt}`
     );
+}
+
+async function scrapePosts(feed: Feed, feedItems: RSSItem[]) {
+    for(const feedItem of feedItems) {
+        await createPost({
+            feedId: feed.id,
+            title: feedItem.title,
+            url: feedItem.link,
+            description: feedItem.description,
+            //TODO: add published date
+        });
+    }
 }
