@@ -21,7 +21,10 @@ async function main() {
     const command = args[0];
     const commandArgs = args.slice(1);
 
-    console.log(`Command: ${command}, CommandArgs: ${commandArgs}`);
+    console.log(`Running Command: ${command}`);
+    if(commandArgs.length >= 1) {
+        console.log(`With Args: ${commandArgs}`);
+    }
 
     try {
         await runCommand(registry, command, ...commandArgs);
