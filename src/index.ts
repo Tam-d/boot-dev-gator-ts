@@ -32,7 +32,7 @@ async function main() {
     catch(error) {
         if(error instanceof Error) {
             console.log(
-                `Error running command ${command}: ${error.message}`
+                `Error running command "${command}": ${error.message}`
             );
         }
         process.exit(1);
