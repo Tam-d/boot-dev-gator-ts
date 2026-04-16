@@ -13,6 +13,7 @@ Set a user from the database to the current user
 ### register
 
 Adds a user to the database
+
 `npm run start register <username>`
 
 ### users
