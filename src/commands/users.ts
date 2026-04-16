@@ -9,7 +9,7 @@ export async function handlerLogin(cmdName: string, ...args: string[]) {
 
     const user = await getUserByName(username);
 
-    if(user === undefined) {
+    if(!user) {
         throw new Error(`The user ${username} was not found`);
     }
 
