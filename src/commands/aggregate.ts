@@ -3,6 +3,7 @@ import { fetchFeed, RSSFeed, RSSItem } from "src/feed.js";
 import { parseDuration } from "src/lib/time.js";
 import { Feed } from "src/lib/db/schema";
 import { createPost } from "src/lib/db/queries/posts";
+import { ConsoleLogWriter } from "drizzle-orm";
 
 export async function handlerAggregate(cmdName: string, ...args: string[]) {
     const duration = args[0];
@@ -68,12 +69,27 @@ async function markFeedFetched(feedId: string) {
 
 async function scrapePosts(feed: Feed, feedItems: RSSItem[]) {
     for(const feedItem of feedItems) {
-        await createPost({
-            feedId: feed.id,
-            title: feedItem.title,
-            url: feedItem.link,
-            description: feedItem.description,
-            //TODO: add published date
-        });
+        console.log(feedItem.pubDate);
+
+        try {
+            const post = await createPost({
+                feedId: feed.id,
+                title: feedItem.title,
+                url: feedItem.link,
+                description: feedItem.description,
+                publishedAt: new Date(feedItem.pubDate)
+            });
+
+            if(!post) {
+                console.log("Failed to insert...Post likely already exists");
+                continue;
+            }
+
+            console.log(`Created new post with id "${post.id}"`);
+            console.log(post.publishedAt)
+        }
+        catch(error) {
+            console.log(`Error on ${feedItem.link}: ${(error as Error).message}`);
+        } 
     }
 }

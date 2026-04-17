@@ -6,6 +6,7 @@ export async function createPost(post: NewPost) {
     const [result] = await db
         .insert(posts)
         .values(post)
+        .onConflictDoNothing()
         .returning();
     return result;
 }
